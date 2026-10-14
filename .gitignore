@@ -1,0 +1,15 @@
+# Python 임시 파일과 가상환경
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 비밀 설정
+.env
+.env.*
+!.env.example
+
+# 로컬 설정과 로그
+.vscode/
+.idea/
+*.log
