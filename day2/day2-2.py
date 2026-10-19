@@ -1,13 +1,13 @@
 # 논리 연산자
 
-# isSuccess = True
-# isPass = False
+isSuccess = True
+isPass = False
 
-# if isSuccess and isPass:
-#     print("A")
+if isSuccess and isPass:
+    print("A")
 
-# else:
-#     print("B")
+else:
+    print("B")
 
 # 단락 평가 short-circuit
 def expensive_check():

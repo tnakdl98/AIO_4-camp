@@ -1,14 +1,14 @@
 # zip
 
-# list_1 = ['a', 'b', 'c']
-# list_2 = [100, 200, 300]
-# result = zip(list_1, list_2)
-# # for i in result:
-# #     print(i)
+list_1 = ['a', 'b', 'c']
+list_2 = [100, 200, 300]
+result = zip(list_1, list_2)
+for i in result:
+    print(i)
 
 # zip으로 생성한 객체를 dictionary 변환
-# result2 = dict(result)
-# print(result2)
+result2 = dict(result)
+print(result2)
 
 
 # R I O C
@@ -24,7 +24,7 @@ list_1 = ['1','2','3','4','5']
 
 result = [int(i) for i in list_1 if int(i) > 3]
 
-# print(result)
+print(result)
 
 menu = ['아메리카노', '라떼', '초코']
 ice_menu = [ '아이스'+ i for i in menu]
