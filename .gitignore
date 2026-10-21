@@ -13,3 +13,6 @@ venv/
 .vscode/
 .idea/
 *.log
+
+*.png
+*.jpg
