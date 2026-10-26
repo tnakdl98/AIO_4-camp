@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python 기초 실습실</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", "Malgun Gothic", sans-serif; color: #23354a; background: #f2f5fa; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 1000px; margin: auto; padding: 48px 24px; }
+    .eyebrow { color: #4268d2; font-weight: 700; letter-spacing: .12em; font-size: .8rem; }
+    h1 { font-size: clamp(1.8rem, 5vw, 2.7rem); margin: 12px 0; }
+    .intro { color: #59697c; line-height: 1.8; }
+    nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 20px; }
+    button { font: inherit; cursor: pointer; border: 1px solid #ccd6e5; border-radius: 10px; padding: 11px 16px; background: white; color: #23354a; }
+    button:hover { background: #e9efff; }
+    button[aria-current="true"], button.primary { background: #3458c9; color: white; border-color: #3458c9; }
+    button:disabled { cursor: default; opacity: .55; }
+    :focus-visible { outline: 3px solid #e99423; outline-offset: 3px; }
+    section { padding: 28px; background: white; border: 1px solid #e0e6ef; border-radius: 18px; box-shadow: 0 8px 30px #23354a08; }
+    section[hidden] { display: none; }
+    h2 { margin: 0 0 10px; font-size: 1.5rem; }
+    .description { color: #59697c; line-height: 1.7; }
+    .tags { color: #4268d2; font-size: .85rem; margin: 14px 0 24px; }
+    form { display: flex; flex-wrap: wrap; align-items: end; gap: 14px; }
+    label { display: flex; flex-direction: column; gap: 8px; font-size: .9rem; font-weight: 600; }
+    input { width: 150px; padding: 11px; border: 1px solid #b9c6d8; border-radius: 8px; font: inherit; }
+    .result { margin-top: 24px; padding: 18px; background: #f0f4ff; border-left: 4px solid #4268d2; border-radius: 8px; white-space: pre-wrap; line-height: 1.8; overflow-wrap: anywhere; }
+    details { margin-top: 24px; }
+    summary { cursor: pointer; color: #4268d2; }
+    pre { background: #1f2c40; color: #e3ebff; border-radius: 10px; padding: 18px; overflow: auto; line-height: 1.7; font-size: .9rem; }
+    .challenge { font-size: .9rem; color: #59697c; line-height: 1.7; }
+    .table-wrap { overflow-x: auto; margin-top: 20px; }
+    table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: .85rem; }
+    th, td { border: 1px solid #dce3ef; padding: 10px; text-align: center; }
+    th { background: #e9efff; }
+    caption { text-align: left; margin-bottom: 10px; font-weight: 600; }
+    .history { padding-left: 24px; color: #59697c; line-height: 1.8; }
+    footer { margin-top: 24px; color: #59697c; font-size: .85rem; line-height: 1.8; }
+    @media (max-width: 600px) { main { padding: 28px 16px; } section { padding: 20px; } input { width: 120px; } nav button { flex: 1 1 130px; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">PYTHON / DAY 01</div>
+    <h1>입력하고, 결과를 확인하세요.</h1>
+    <p class="intro">다섯 가지 기초 실습을 브라우저에서 다시 해보세요.<br>값을 바꾸어 실행하고, 원래 Python 코드와 결과를 비교할 수 있습니다.</p>
+  </header>
+  <nav aria-label="실습 선택">
+    <button type="button" data-target="addition" aria-controls="addition" aria-current="true">01 변수와 덧셈</button>
+    <button type="button" data-target="pass-fail" aria-controls="pass-fail" aria-current="false">02 합격 판정</button>
+    <button type="button" data-target="even" aria-controls="even" aria-current="false">03 짝수 찾기</button>
+    <button type="button" data-target="table" aria-controls="table" aria-current="false">04 구구단</button>
+    <button type="button" data-target="game" aria-controls="game" aria-current="false">05 숫자 맞추기</button>
+  </nav>
+
+  <section id="addition" aria-labelledby="addition-title">
+    <h2 id="addition-title">두 변수의 값을 더해보세요.</h2>
+    <p class="description">원래 예제의 100과 200을 바꾸면서 덧셈 결과를 확인합니다.</p>
+    <div class="tags">변수 · 정수 · 산술 연산 · print()</div>
+    <form id="addition-form">
+      <label>number1<input name="number1" type="number" step="1" value="100" required></label>
+      <label>number2<input name="number2" type="number" step="1" value="200" required></label>
+      <button class="primary">덧셈 실행</button>
+    </form>
+    <div id="addition-result" class="result" role="status" aria-live="polite">값을 입력하고 덧셈 실행을 눌러주세요.</div>
+    <details><summary>Python 코드 보기</summary><pre><code>number1 = 100
+number2 = 200
+print("number1 + number2 =", number1 + number2)</code></pre></details>
+    <p class="challenge">추가 연습: Python 코드에서 덧셈을 뺄셈이나 곱셈으로 바꿔보세요.</p>
+  </section>
+
+  <section id="pass-fail" aria-labelledby="pass-title" hidden>
+    <h2 id="pass-title">60점 이상이면 합격입니다.</h2>
+    <p class="description">59, 60, 61을 입력해 조건의 경계에서 결과가 어떻게 달라지는지 확인하세요.</p>
+    <div class="tags">input() · int() · if / else · 비교 연산</div>
+    <form id="pass-form">
+      <label>점수<input name="score" type="number" step="1" value="60" required></label>
+      <button class="primary">결과 확인</button>
+    </form>
+    <div id="pass-result" class="result" role="status" aria-live="polite">점수를 입력하고 결과 확인을 눌러주세요.</div>
+    <details><summary>Python 코드 보기</summary><pre><code>score = int(input("점수를 입력하세요: "))
+if score &gt;= 60:
+    print("합격")
+else:
+    print("불합격")</code></pre></details>
+    <p class="challenge">추가 연습: Python 코드에서 80점 이상이면 '우수'를 출력하도록 조건을 추가해보세요.</p>
+  </section>
+
+  <section id="even" aria-labelledby="even-title" hidden>
+    <h2 id="even-title">숫자 다섯 개에서 짝수를 찾으세요.</h2>
+    <p class="description">입력한 숫자를 리스트에 저장하고, 2로 나눈 나머지가 0인 값만 출력합니다.</p>
+    <div class="tags">리스트 · append() · for · 나머지 연산 %</div>
+    <form id="even-form">
+      <label>숫자 1<input name="n1" type="number" step="1" value="1" required></label>
+      <label>숫자 2<input name="n2" type="number" step="1" value="2" required></label>
+      <label>숫자 3<input name="n3" type="number" step="1" value="3" required></label>
+      <label>숫자 4<input name="n4" type="number" step="1" value="4" required></label>
+      <label>숫자 5<input name="n5" type="number" step="1" value="5" required></label>
+      <button class="primary">짝수 찾기</button>
+    </form>
+    <div id="even-result" class="result" role="status" aria-live="polite">다섯 개의 정수를 입력하세요.</div>
+    <details><summary>Python 코드 보기</summary><pre><code>scores = []
+for i in range(5):
+    score = int(input(f"{i + 1}: 숫자를 입력하세요: "))
+    scores.append(score)
+
+print("입력한 숫자:", scores)
+for number in scores:
+    if number % 2 == 0:
+        print(number)</code></pre></details>
+    <p class="challenge">추가 연습: 0이나 음수를 입력해보세요. Python 코드에서 홀수만 출력하도록 바꿔보세요.</p>
+  </section>
+
+  <section id="table" aria-labelledby="table-title" hidden>
+    <h2 id="table-title">반복문으로 구구단을 만드세요.</h2>
+    <p class="description">원래 실습의 작은 구구단과 전체 구구단을 표로 확인합니다.</p>
+    <div class="tags">중첩 for · range() · f-string</div>
+    <form id="table-form">
+      <button class="primary" name="mode" value="small">2~4단 × 1~4 출력</button>
+      <button name="mode" value="full">전체 2~9단 출력</button>
+    </form>
+    <div id="table-result" class="result" role="status" aria-live="polite">출력할 구구단을 선택하세요.</div>
+    <div id="table-output" class="table-wrap"></div>
+    <details><summary>Python 코드 보기</summary><pre><code># 작은 구구단
+for dan in range(2, 5):
+    for i in range(1, 5):
+        print(f"{dan} X {i} = {dan * i}", end="\t")
+    print()
+
+# 전체 구구단
+for multiplier in range(1, 10):
+    for dan in range(2, 10):
+        print(f"{dan} X {multiplier} = {dan * multiplier}", end="\t")
+    print()</code></pre></details>
+    <p class="challenge">추가 연습: Python 코드의 range() 범위를 바꿔 원하는 단만 출력해보세요.</p>
+  </section>
+
+  <section id="game" aria-labelledby="game-title" hidden>
+    <h2 id="game-title">컴퓨터가 고른 숫자는 무엇일까요?</h2>
+    <p class="description">1~100 사이의 정수를 입력하세요. 크거나 작다는 힌트로 정답을 찾습니다.</p>
+    <div class="tags">random · while · if / elif / else · break</div>
+    <form id="game-form">
+      <label>예상 숫자<input name="guess" type="number" min="1" max="100" step="1" required placeholder="1~100"></label>
+      <button id="guess-button" class="primary">정답 확인</button>
+      <button id="restart-button" type="button">새 게임</button>
+    </form>
+    <div id="game-result" class="result" role="status" aria-live="polite">새 숫자를 골랐습니다. 첫 번째 도전을 시작하세요!</div>
+    <ol id="game-history" class="history" aria-label="시도 기록"></ol>
+    <details><summary>Python 코드 보기</summary><pre><code>import random
+
+com_num = random.randint(1, 100)
+count = 0
+while True:
+    user_num = int(input("1~100: "))
+    if not 1 &lt;= user_num &lt;= 100:
+        print("1~100 사이의 정수를 입력하세요.")
+        continue
+    count += 1
+    if user_num &gt; com_num:
+        print("컴퓨터보다 큽니다.")
+    elif user_num &lt; com_num:
+        print("컴퓨터보다 작습니다.")
+    else:
+        print(f"정답입니다! 총 시도 횟수: {count}")
+        break</code></pre></details>
+    <p class="challenge">추가 연습: Python 코드에서 최대 시도 횟수를 정하거나 숫자 범위를 바꿔보세요.</p>
+  </section>
+  <footer>이 페이지는 HTML·CSS·JavaScript만 사용합니다. 계산은 브라우저에서 수행하며 표시된 Python 코드는 학습용 예제입니다.<br>Python 코드를 수정해 실행하려면 기존 python_practice_modules 폴더를 이용하세요.</footer>
+  <noscript><p>실습을 실행하려면 브라우저의 JavaScript를 활성화해주세요.</p></noscript>
+</main>
+<script>
+  'use strict';
+  const byId = id => document.getElementById(id);
+  const showResult = (id, message) => { byId(id).textContent = message; };
+
+  document.querySelectorAll('nav button').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('main > section').forEach(section => {
+        section.hidden = section.id !== button.dataset.target;
+      });
+      document.querySelectorAll('nav button').forEach(item => {
+        item.setAttribute('aria-current', String(item === button));
+      });
+    });
+  });
+
+  function integers(form, resultId) {
+    const inputs = [...form.querySelectorAll('input')];
+    const values = inputs.map(input => input.valueAsNumber);
+    if (values.some(value => !Number.isSafeInteger(value))) {
+      showResult(resultId, '정확한 계산을 위해 안전한 범위의 정수를 입력하세요 (±9,007,199,254,740,991).');
+      return null;
+    }
+    return values;
+  }
+
+  byId('addition-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const values = integers(event.currentTarget, 'addition-result');
+    if (!values) return;
+    const sum = values[0] + values[1];
+    showResult('addition-result', Number.isSafeInteger(sum)
+      ? `${values[0]} + ${values[1]} = ${sum}\nnumber1 + number2 = ${sum}`
+      : '합계가 안전한 정수 범위를 초과했습니다. 더 작은 값을 입력하세요.');
+  });
+
+  byId('pass-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const values = integers(event.currentTarget, 'pass-result');
+    if (!values) return;
+    const score = values[0];
+    showResult('pass-result', `입력한 점수: ${score}\n결과: ${score >= 60 ? '합격' : '불합격'}`);
+  });
+
+  byId('even-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const values = integers(event.currentTarget, 'even-result');
+    if (!values) return;
+    const evens = values.filter(number => number % 2 === 0);
+    showResult('even-result', `입력한 숫자: [${values.join(', ')}]\n짝수: ${evens.length ? evens.join(', ') : '없습니다.'}`);
+  });
+
+  byId('table-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const small = event.submitter?.value === 'small';
+    const lastDan = small ? 4 : 9;
+    const lastMultiplier = small ? 4 : 9;
+    const table = document.createElement('table');
+    const caption = table.createCaption();
+    caption.textContent = `2~${lastDan}단 × 1~${lastMultiplier}`;
+    const header = table.createTHead().insertRow();
+    for (let dan = 2; dan <= lastDan; dan++) {
+      const th = document.createElement('th');
+      th.scope = 'col';
+      th.textContent = `${dan}단`;
+      header.append(th);
+    }
+    const body = table.createTBody();
+    for (let multiplier = 1; multiplier <= lastMultiplier; multiplier++) {
+      const row = body.insertRow();
+      for (let dan = 2; dan <= lastDan; dan++) {
+        row.insertCell().textContent = `${dan} × ${multiplier} = ${dan * multiplier}`;
+      }
+    }
+    byId('table-output').replaceChildren(table);
+    showResult('table-result', `${small ? '작은' : '전체'} 구구단을 출력했습니다.`);
+  });
+
+  let secret = Math.floor(Math.random() * 100) + 1;
+  let attempts = 0;
+  let solved = false;
+  byId('game-form').addEventListener('submit', event => {
+    event.preventDefault();
+    if (solved) return;
+    const values = integers(event.currentTarget, 'game-result');
+    if (!values) return;
+    const guess = values[0];
+    if (guess < 1 || guess > 100) {
+      showResult('game-result', '1~100 사이의 정수를 입력하세요.');
+      return;
+    }
+    attempts++;
+    let hint;
+    if (guess > secret) hint = '컴퓨터보다 큽니다. 더 작은 숫자를 입력하세요.';
+    else if (guess < secret) hint = '컴퓨터보다 작습니다. 더 큰 숫자를 입력하세요.';
+    else {
+      solved = true;
+      hint = `정답입니다! 총 시도 횟수: ${attempts}`;
+      byId('guess-button').disabled = true;
+      event.currentTarget.elements.guess.disabled = true;
+    }
+    showResult('game-result', `${hint}${solved ? '' : `\n현재 시도 횟수: ${attempts}`}`);
+    const item = document.createElement('li');
+    item.textContent = `${guess} → ${hint}`;
+    byId('game-history').append(item);
+    if (!solved) {
+      event.currentTarget.elements.guess.select();
+    }
+  });
+
+  byId('restart-button').addEventListener('click', () => {
+    secret = Math.floor(Math.random() * 100) + 1;
+    attempts = 0;
+    solved = false;
+    byId('game-form').reset();
+    byId('guess-button').disabled = false;
+    const input = byId('game-form').elements.guess;
+    input.disabled = false;
+    byId('game-history').replaceChildren();
+    showResult('game-result', '새 숫자를 골랐습니다. 첫 번째 도전을 시작하세요!');
+    input.focus();
+  });
+</script>
+</body>
+</html>
