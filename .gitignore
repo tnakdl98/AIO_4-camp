@@ -17,3 +17,5 @@ venv/
 *.png
 *.jpg
 *.json
+
+*.models
